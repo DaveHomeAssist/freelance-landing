@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Rapid Sites — Professional Websites in 48 Hours</title>
+  <meta name="description" content="Professional websites for local businesses — delivered in 48 hours. Fast, affordable, mobile-optimized web design in Philadelphia & South Jersey.">
+  <meta name="theme-color" content="#0A0A0B">
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Rapid Sites — Professional Websites in 48 Hours">
+  <meta property="og:description" content="Professional websites for local businesses — delivered in 48 hours. Fast, affordable, mobile-optimized web design in Philadelphia & South Jersey.">
+  <meta property="og:url" content="https://davehomeassist.github.io/freelance-landing/">
+  <meta property="og:image" content="https://davehomeassist.github.io/freelance-landing/assets/og-image.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #0A0A0B; color: #e8e8e8; }
+    #loading { position: fixed; inset: 0; z-index: 9999; background: #0A0A0B;
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
+      transition: opacity 0.4s ease; }
+    #loading.hide { opacity: 0; pointer-events: none; }
+    #loading-spinner { width: 28px; height: 28px; border: 3px solid rgba(255,255,255,0.2);
+      border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading-text { color: rgba(255,255,255,0.6); font-size: 13px; margin-top: 14px; }
+    /* Static fallback shown if JS fails */
+    .no-js-fallback { display: none; text-align: center; padding: 4rem 1rem; }
+    .no-js-fallback h1 { font-size: 2rem; margin-bottom: 1rem; }
+    .no-js-fallback p { font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 480px; margin: 0 auto; }
+  </style>
+  <noscript>
+    <style>
+      #loading { display: none !important; }
+      .no-js-fallback { display: block !important; }
+    </style>
+  </noscript>
+</head>
+<body>
+  <div id="loading"><div id="loading-spinner"></div><div id="loading-text">Loading...</div></div>
+  <div id="root"></div>
+  <div class="no-js-fallback">
+    <h1>Rapid Sites</h1>
+    <p>Professional websites for local businesses — delivered in 48 hours. Please enable JavaScript to view the full experience.</p>
+  </div>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="freelance-landing.jsx" type="text/babel"></script>
+  <script>
+    const el = document.getElementById('loading');
+    const check = () => {
+      if (document.getElementById('root').children.length > 0) {
+        el.classList.add('hide');
+        setTimeout(() => el.remove(), 500);
+      } else {
+        requestAnimationFrame(check);
+      }
+    };
+    requestAnimationFrame(check);
+    setTimeout(() => { el.classList.add('hide'); }, 3000);
+  </script>
+</body>
+</html>
