@@ -1,124 +1,844 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Rapid Sites — Professional Websites in 48 Hours</title>
-  <meta name="description" content="Professional websites for local businesses — delivered in 48 hours. Fast, affordable, mobile-optimized web design in Philadelphia & South Jersey.">
-  <meta name="theme-color" content="#0A0A0B">
-  <!-- OpenGraph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Rapid Sites — Professional Websites in 48 Hours">
-  <meta property="og:description" content="Professional websites for local businesses — delivered in 48 hours. Fast, affordable, mobile-optimized web design in Philadelphia & South Jersey.">
-  <meta property="og:url" content="https://davehomeassist.github.io/freelance-landing/">
-  <meta property="og:image" content="https://davehomeassist.github.io/freelance-landing/assets/og-image.png">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: system-ui, sans-serif; background: #0A0A0B; color: #e8e8e8; }
-    .skip-link {
-      position: absolute;
-      left: -9999px;
-      top: auto;
-      z-index: 1000;
-      padding: 8px 16px;
-      background: #0A0A0B;
-      color: #7ee7d8;
-      border-radius: 4px;
-      text-decoration: none;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dave Robertson — Systems Architecture &amp; AI Engineering</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Satoshi:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0b09;
+    --bg-warm: #110f0b;
+    --surface: #1a1814;
+    --surface-2: #222018;
+    --border: #2e2a22;
+    --border-light: #3d3729;
+    --text: #e8e2d6;
+    --text-mid: #a8a08e;
+    --text-dim: #6b6556;
+    --amber: #d4a843;
+    --amber-bright: #ecc154;
+    --amber-glow: rgba(212, 168, 67, 0.08);
+    --amber-glow-strong: rgba(212, 168, 67, 0.15);
+    --ember: #c45d2c;
+    --cream: #f0e8d8;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'Satoshi', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scrollbar-color: var(--border) var(--bg);
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* === GRAIN OVERLAY === */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    z-index: 10000;
+  }
+
+  /* === NAVIGATION === */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.4s, backdrop-filter 0.4s;
+  }
+
+  .nav.scrolled {
+    background: rgba(12, 11, 9, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--amber);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--amber);
+    transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* === HERO === */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 40px 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero-overline {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--cream);
+    max-width: 900px;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--amber);
+  }
+
+  .hero-desc {
+    font-size: 18px;
+    color: var(--text-mid);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.8s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 36px;
+    background: var(--amber);
+    color: var(--bg);
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary:hover {
+    background: var(--amber-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(212, 168, 67, 0.25);
+  }
+
+  .btn-primary:active { transform: translateY(0) scale(0.98); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 36px;
+    background: transparent;
+    color: var(--text-mid);
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: all 0.3s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--amber);
+    color: var(--amber);
+    transform: translateY(-2px);
+  }
+
+  /* Ambient glow behind hero */
+  .hero-glow {
+    position: absolute;
+    top: 20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(212, 168, 67, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+    animation: drift 12s ease-in-out infinite alternate;
+  }
+
+  @keyframes drift {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-40px, 30px); }
+  }
+
+  /* === SECTION SHARED === */
+  .section {
+    padding: 100px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 20px;
+    line-height: 1.15;
+  }
+
+  .section-subtitle {
+    font-size: 16px;
+    color: var(--text-mid);
+    max-width: 600px;
+    margin-bottom: 60px;
+    line-height: 1.7;
+  }
+
+  /* === DIVIDER === */
+  .divider {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .divider-line {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  /* === SERVICES === */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+  }
+
+  .service-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: default;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--amber), var(--ember));
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .service-card:hover {
+    border-color: var(--border-light);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+  }
+
+  .service-card:hover::before { opacity: 1; }
+
+  .service-num {
+    font-family: var(--mono);
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 24px;
+    transition: color 0.4s;
+  }
+
+  .service-card:hover .service-num { color: var(--border-light); }
+
+  .service-card h3 {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 12px;
+  }
+
+  .service-card p {
+    font-size: 15px;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  .service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 20px;
+  }
+
+  .service-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
+
+  /* === PROOF BAR === */
+  .proof-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 80px;
+  }
+
+  .proof-cell {
+    background: var(--surface);
+    padding: 36px 28px;
+    text-align: center;
+  }
+
+  .proof-num {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    color: var(--amber);
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .proof-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* === APPROACH === */
+  .approach-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .approach-text {
+    max-width: 520px;
+  }
+
+  .approach-text p {
+    font-size: 16px;
+    color: var(--text-mid);
+    margin-bottom: 20px;
+    line-height: 1.8;
+  }
+
+  .approach-text blockquote {
+    border-left: 2px solid var(--amber);
+    padding-left: 24px;
+    margin: 32px 0;
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.5;
+  }
+
+  .approach-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .stack-item {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 20px;
+    align-items: start;
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .stack-item:hover {
+    border-color: var(--amber);
+    background: var(--amber-glow);
+    transform: translateX(6px);
+  }
+
+  .stack-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--amber);
+    background: var(--amber-glow);
+    border-radius: 6px;
+  }
+
+  .stack-item h4 {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+
+  .stack-item p {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* === CTA SECTION === */
+  .cta-section {
+    text-align: center;
+    padding: 120px 40px;
+    position: relative;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, var(--amber-glow) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cta-section .section-title {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-section .section-subtitle {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+  }
+
+  /* === FOOTER === */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-left {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .footer-right {
+    display: flex;
+    gap: 24px;
+  }
+
+  .footer-right a {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-right a:hover { color: var(--amber); }
+
+  /* === ANIMATIONS === */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Stagger children */
+  .stagger > * {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .stagger.visible > *:nth-child(1) { transition-delay: 0ms; }
+  .stagger.visible > *:nth-child(2) { transition-delay: 80ms; }
+  .stagger.visible > *:nth-child(3) { transition-delay: 160ms; }
+  .stagger.visible > *:nth-child(4) { transition-delay: 240ms; }
+  .stagger.visible > *:nth-child(5) { transition-delay: 320ms; }
+  .stagger.visible > *:nth-child(6) { transition-delay: 400ms; }
+
+  .stagger.visible > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 900px) {
+    .nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    .section { padding: 60px 24px; }
+    .approach-grid { grid-template-columns: 1fr; gap: 40px; }
+    .proof-bar { grid-template-columns: 1fr 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .footer { padding: 32px 24px; }
+  }
+
+  @media (max-width: 600px) {
+    .proof-bar { grid-template-columns: 1fr; }
+    .hero-ctas { flex-direction: column; }
+    .hero-ctas a { text-align: center; }
+  }
+
+  /* === REDUCED MOTION === */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
     }
-    .skip-link:focus { left: 10px; top: 10px; }
-    .fallback-header,
-    .fallback-main {
-      max-width: 880px;
-      margin: 0 auto;
-      padding: 16px;
-    }
-    .fallback-header {
-      display: grid;
-      gap: 10px;
-      margin-top: 3rem;
-    }
-    .fallback-header h1 {
-      font-size: clamp(1.9rem, 4vw, 2.6rem);
-      line-height: 1.05;
-    }
-    .fallback-header nav a {
-      color: #7ee7d8;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .fallback-header nav a:hover,
-    .fallback-header nav a:focus-visible { text-decoration: underline; }
-    .fallback-copy { color: rgba(255,255,255,0.74); line-height: 1.6; }
-    #loading { position: fixed; inset: 0; z-index: 9999; background: #0A0A0B;
-      display: flex; align-items: center; justify-content: center; flex-direction: column;
-      transition: opacity 0.4s ease; }
-    #loading.hide { opacity: 0; pointer-events: none; }
-    #loading-spinner { width: 28px; height: 28px; border: 3px solid rgba(255,255,255,0.2);
-      border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    #loading-text { color: rgba(255,255,255,0.6); font-size: 13px; margin-top: 14px; }
-    /* Static fallback shown if JS fails */
-    .no-js-fallback { display: none; text-align: center; padding: 4rem 1rem; }
-    .no-js-fallback h1 { font-size: 2rem; margin-bottom: 1rem; }
-    .no-js-fallback p { font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 480px; margin: 0 auto; }
-  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
-  </style>
-  <noscript>
-    <style>
-      #loading { display: none !important; }
-      .no-js-fallback { display: block !important; }
-    </style>
-  </noscript>
+    .hero-glow { animation: none; }
+  }
+</style>
 </head>
 <body>
-  <a href="#root" class="skip-link">Skip to content</a>
-  <header class="fallback-header">
-    <h1>Rapid Sites — Professional Websites in 48 Hours</h1>
-    <nav aria-label="Primary navigation">
-      <a href="https://davehomeassist.github.io/">Back to DaveHomeAssist</a>
-    </nav>
-    <p class="fallback-copy">Professional websites for local businesses, delivered fast with a lightweight landing-page flow.</p>
-  </header>
-  <main class="fallback-main">
-    <div id="loading"><div id="loading-spinner"></div><div id="loading-text">Loading...</div></div>
-    <div id="root">
-      <noscript>
-        <div style="padding:2rem 0;line-height:1.7;">
-          <h2 style="font-size:1.4rem;margin-bottom:.5rem;color:#7ee7d8;">Professional Websites in 48 Hours</h2>
-          <p class="fallback-copy" style="margin-bottom:1rem;">Rapid Sites builds fast, beautiful, mobile-ready websites for restaurants, contractors, law firms, and small businesses. Fixed pricing, no surprises — serving Philadelphia &amp; South Jersey.</p>
-          <h3 style="font-size:1.1rem;margin-bottom:.4rem;">Packages</h3>
-          <ul style="list-style:disc;padding-left:1.5rem;color:rgba(255,255,255,0.74);margin-bottom:1rem;">
-            <li>Starter — $750 flat, 48-hour delivery</li>
-            <li>Professional — $1,500 flat, 3-5 day delivery (most popular)</li>
-            <li>Premium — $2,500 flat, 5-7 day delivery</li>
-          </ul>
-          <h3 style="font-size:1.1rem;margin-bottom:.4rem;">Get Started</h3>
-          <p class="fallback-copy">
-            Email: <a href="mailto:hello@rapidsites.dev" style="color:#7ee7d8;">hello@rapidsites.dev</a><br>
-            Phone: <a href="tel:+15550000000" style="color:#7ee7d8;">(555) 000-0000</a><br>
-            Free 15-minute consultation — no pressure, no commitment.
-          </p>
-          <p style="color:rgba(255,255,255,0.4);font-size:.85rem;margin-top:1rem;">Enable JavaScript for the full interactive experience including portfolio, pricing details, and contact form.</p>
-        </div>
-      </noscript>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-brand">Dave Robertson</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-overline">Systems Architecture · AI Engineering · Freelance</div>
+  <h1>I build systems that <em>think clearly</em></h1>
+  <p class="hero-desc">
+    AI architecture, agentic systems, and neuro-symbolic design. I help teams ship reliable, auditable AI — where the model is powerful and the harness makes it trustworthy.
+  </p>
+  <div class="hero-ctas">
+    <a href="#contact" class="btn-primary">Start a Conversation →</a>
+    <a href="#services" class="btn-secondary">See Services</a>
+  </div>
+</section>
+
+<div class="divider"><hr class="divider-line"></div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <span class="section-label reveal">What I Build</span>
+  <h2 class="section-title reveal">Services</h2>
+  <p class="section-subtitle reveal">
+    From architecture to deployment — hybrid systems designed for reliability, not demos.
+  </p>
+
+  <div class="services-grid stagger">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <h3>AI Systems Architecture</h3>
+      <p>Design the full pipeline: LLM orchestration, tool routing, state management, validators, and scoring loops. The harness that makes models production-ready.</p>
+      <div class="service-tags">
+        <span class="service-tag">Agent Harness</span>
+        <span class="service-tag">Router Design</span>
+        <span class="service-tag">Tool Contracts</span>
+        <span class="service-tag">State Machines</span>
+      </div>
     </div>
-  </main>
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="freelance-landing.jsx" type="text/babel"></script>
-  <script>
-    const el = document.getElementById('loading');
-    const check = () => {
-      if (document.getElementById('root').children.length > 0) {
-        el.classList.add('hide');
-        setTimeout(() => el.remove(), 500);
-      } else {
-        requestAnimationFrame(check);
-      }
-    };
-    requestAnimationFrame(check);
-    setTimeout(() => { el.classList.add('hide'); }, 3000);
-  </script>
+
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <h3>Neuro-Symbolic Integration</h3>
+      <p>Bridge neural inference with explicit logic: knowledge graphs, constraint validators, symbolic postprocessing. Reduce hallucinations, increase auditability.</p>
+      <div class="service-tags">
+        <span class="service-tag">Knowledge Graphs</span>
+        <span class="service-tag">GraphRAG</span>
+        <span class="service-tag">Constraint Systems</span>
+        <span class="service-tag">Verification</span>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <h3>Research &amp; Technical Writing</h3>
+      <p>Translate complex AI concepts into clear, structured documentation. Research briefs, architecture specs, glossaries, and technical position papers.</p>
+      <div class="service-tags">
+        <span class="service-tag">Research Briefs</span>
+        <span class="service-tag">Architecture Docs</span>
+        <span class="service-tag">Position Papers</span>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <h3>Full-Stack Development</h3>
+      <p>Production frontends and backends. Interactive data visualizations, dashboards, APIs, and tooling. Clean code, tested, deployed.</p>
+      <div class="service-tags">
+        <span class="service-tag">TypeScript</span>
+        <span class="service-tag">React</span>
+        <span class="service-tag">Node.js</span>
+        <span class="service-tag">Python</span>
+        <span class="service-tag">D3.js</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="proof-bar reveal">
+    <div class="proof-cell">
+      <div class="proof-num">61</div>
+      <div class="proof-label">NeSy Glossary Terms</div>
+    </div>
+    <div class="proof-cell">
+      <div class="proof-num">6</div>
+      <div class="proof-label">Architecture Layers</div>
+    </div>
+    <div class="proof-cell">
+      <div class="proof-num">&lt;2%</div>
+      <div class="proof-label">Target Hallucination</div>
+    </div>
+    <div class="proof-cell">
+      <div class="proof-num">CS</div>
+      <div class="proof-label">Comp-Sci Foundation</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr class="divider-line"></div>
+
+<!-- APPROACH -->
+<section class="section" id="approach">
+  <span class="section-label reveal">How I Work</span>
+  <h2 class="section-title reveal">The Approach</h2>
+
+  <div class="approach-grid">
+    <div class="approach-text reveal">
+      <p>
+        I treat every AI system as a hybrid pipeline with clearly separated concerns. The model handles interpretation and generation. Everything else — routing, validation, state, memory, scoring — is explicit, deterministic, and auditable.
+      </p>
+      <p>
+        This isn't theoretical. It's the same architecture pattern behind every production agent that actually works, from Claude Code's leaked orchestration kernel to enterprise composite AI systems.
+      </p>
+      <blockquote>
+        Logic adds a level of confidence that inference alone will never achieve.
+      </blockquote>
+      <p>
+        I write in implementable components first: state model, router loop, tool contracts, validators, memory graph, eval hooks. Then optionally map the above to "neurosymbolic." Precision ships.
+      </p>
+    </div>
+
+    <div class="approach-stack stagger">
+      <div class="stack-item">
+        <div class="stack-icon">λ</div>
+        <div>
+          <h4>LLM as Interpreter</h4>
+          <p>Hypothesis generation, intent understanding, natural language glue — not source of truth.</p>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">⊢</div>
+        <div>
+          <h4>Deterministic Router</h4>
+          <p>Same inputs + same state = same plan. Tool selection and sequencing with transactional semantics.</p>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">G</div>
+        <div>
+          <h4>Memory Graph</h4>
+          <p>Entities, relationships, prior runs. Structured retrieval that goes beyond vector similarity.</p>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">✓</div>
+        <div>
+          <h4>Hard Validators</h4>
+          <p>Constraints, type checks, safety bounds. Independent of the model — pass or block.</p>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">↻</div>
+        <div>
+          <h4>Scoring &amp; Rollback</h4>
+          <p>Evaluate, revise, retry, backtrack. Iterative loops with transactional guarantees.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr class="divider-line"></div>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <span class="section-label reveal">Let's Build</span>
+  <h2 class="section-title reveal">Ready to ship something <em style="font-family:var(--serif);font-style:italic;color:var(--amber)">reliable?</em></h2>
+  <p class="section-subtitle reveal">
+    I'm available for freelance architecture work, consulting engagements, and research collaborations.
+  </p>
+  <div class="reveal">
+    <a href="mailto:daverobertson9353@gmail.com" class="btn-primary">daverobertson9353@gmail.com →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-left">© 2026 Dave Robertson</div>
+  <div class="footer-right">
+    <a href="https://davehomeassist.github.io/nesy/">NeSy Research</a>
+    <a href="skills.html">Skills</a>
+    <a href="mailto:daverobertson9353@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+// Nav scroll state
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Intersection Observer for reveals
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
+
+// Smooth anchor scroll offset
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
 </body>
 </html>
