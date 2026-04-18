@@ -1,6 +1,4 @@
-> **DEPRECATED** — This file is superseded by `CLAUDE.md`. Issues, session log, and project metadata now live in CLAUDE.md. This file is retained as a historical archive only.
-
-# AGENTS.md
+# CLAUDE.md
 
 Inherits root rules from `/Users/daverobertson/Desktop/Code/AGENTS.md`.
 
@@ -18,6 +16,11 @@ Freelance landing page component. A single React JSX file for a focused landing 
 
 - Standalone JSX component, not integrated into the main freelance repo
 - Designed as a drop-in landing page for campaigns or alternate entry points
+
+## Documentation Maintenance
+
+- **Issues**: Track in the issue tracker table below
+- **Session log**: Append to `/Users/daverobertson/Desktop/Code/95-docs-personal/today.csv` after each meaningful change
 
 ## Issue Tracker
 
